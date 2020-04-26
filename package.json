@@ -4,7 +4,8 @@
   "description": "Unit14 Handlebars HW",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodeman server.js"
   },
   "repository": {
     "type": "git",

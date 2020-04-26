@@ -1,0 +1,58 @@
+.jumbotron {
+  background-image: url("../img/burger2.jpeg");
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
+}
+#container-body {
+  margin: 0 15%;
+  align-items: center;
+}
+#title {
+  color: whitesmoke;
+  font-size: 4rem;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+h3 {
+  text-decoration-line: underline;
+}
+.burger {
+  margin-top: 10px;
+  width: 60%;
+  float: left;
+}
+.delBurger {
+  margin-top: 10px;
+  width: 30%;
+  float: left;
+}
+#toDevour,
+#devoured {
+  width: 50%;
+  min-height: 300px;
+  float: left;
+  padding: 20px;
+}
+#devoured {
+  border-left: 2px dashed black;
+}
+#burgerDivs {
+  clear: both;
+}
+textarea {
+  height: 60px;
+}
+#submitButton {
+  height: 60px;
+  position: relative;
+  bottom: 25px;
+}
+#submit-form {
+  clear: both;
+  padding: 20px;
+  border-top: 2px dashed black;
+}
+#instructions {
+  margin: 10px;
+}

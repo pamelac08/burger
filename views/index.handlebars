@@ -1,4 +1,86 @@
-{{!-- Setup the index.handlebars to have the template that Handlebars can render onto.
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="text-left" id="title">Eat-Da-Burger!</h1>
+  </div>
+</div>
 
-Create a button in index.handlebars that will submit the user input into the database. --}}
+<div id="container-body">
+  <div id="burgerDivs">
+    <div id="toDevour">
+      <h3>Ready to Eat</h3>
+      {{#each burger}}
+      {{#unless devoured}}
+      <p class="burger">
+        {{this.id}}. &nbsp 
+        {{this.burger_name}}
+      </p>
+      <button data-burgerid="{{this.id}}" class="delBurger">Devour It!</button>
+      {{/unless}}
+      {{/each}}
+    </div>
 
+    <div id="devoured">
+      <h3>Already Eaten:</h3>
+      {{#each burger}}
+      {{#if devoured}}
+      <p class="burger">{{this.id}}. &nbsp {{this.burger_name}}</p>
+      {{/if}}
+      {{/each}}
+    </div>
+  </div>
+
+  <div id="submit-form" class="text-center">
+    <h2>Add a burger:</h2>
+    <div id="submit-text-button">
+      <form id="createburger" class="button-size">
+        <textarea type="text" name="burger"></textarea>
+        <button id="submitButton" type="submit">Save Burger!</button>
+      </form>
+    </div>
+    <div id="instructions">
+      <p>Enter a burger you want to eat - Click the button to submit!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#createburger").on("submit", function (event) {
+    event.preventDefault();
+
+    // capturing input data from form to create new burger
+    var newBurger = {
+      burger: $("#createburger [name=burger]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function () {
+        console.log("created new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $(".delBurger").on("click", function (event) {
+    event.preventDefault();
+
+    // capturing the id of the button selected that is tied to the id of the burger_name in the database  
+    var id = $(this).data("burgerid");
+
+    // Send the PUT request.
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT"
+    }).then(
+      function () {
+        console.log("updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+</script>

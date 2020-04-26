@@ -2,6 +2,6 @@
 
 Insert into burgers (burger_name)
 values 
-    ("bacon cheeseburger"),
-    ("veggie burger"),
-    ("chicken sandwich")
+    ("Bacon cheeseburger"),
+    ("Veggie burger"),
+    ("Chicken sandwich")

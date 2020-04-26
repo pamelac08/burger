@@ -1,35 +1,66 @@
-// Import (require) connection.js into orm.js
-var connection = require("connection.js");
+var connection = require("../config/connection.js");
 
-// In the orm.js file, create the methods that will execute the necessary MySQL commands in the controllers. These are the methods you will need to use in order to retrieve and store data in your database.
+var orm = {
+  // method to read all data from the burgers table in the mysql database
+  selectAll: function (tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  // method to add a burger into the database from user input on the client
+  insertOne: function (table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table + " (" + cols + ") VALUES (?)";
 
-// Initiate MySQL Connection.
-connection.connect(function(err) {
-    if (err) {
-      console.error("error connecting: " + err.stack);
-      return;
+    connection.query(queryString, vals, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  // method to update the devoured value when button is clicked on client
+  updateOne: function (table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+};
+
+// Helper function to convert object key/value pairs to SQL syntax
+function objToSql(ob) {
+  var arr = [];
+
+  // loop through the keys and push the key/value as a string int arr
+  for (var key in ob) {
+    var value = ob[key];
+    // check to skip hidden properties
+    if (Object.hasOwnProperty.call(ob, key)) {
+      // if string with spaces
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      }
+
+      arr.push(key + "=" + value);
     }
-    console.log("connected as id " + connection.threadId);
-  });
+  }
 
-
-
-var databaseUpdate =  {
-    selectAll: function () {
-        console.log("select all function")
-    },
-    insertOne: function () {
-        console.log("insert one function")
-    },
-    updateOne: function () {
-        console.log("update one function")
-    }
+  // translate array of strings to a single comma-separated string
+  return arr.toString();
 }
 
-// selectAll()
-// insertOne()
-// updateOne()
-
-
 // Export the ORM object in module.exports.
-module.exports = databaseUpdate;
+module.exports = orm;
