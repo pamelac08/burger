@@ -13,7 +13,7 @@ var orm = {
   },
   // method to add a burger into the database from user input on the client
   insertOne: function (table, cols, vals, cb) {
-    var queryString = "INSERT INTO " + table + " (" + cols + ") VALUES (?)";
+    var queryString = "INSERT INTO " + table + " (" + cols + ", devoured) VALUES (?, false)";
 
     connection.query(queryString, vals, function (err, result) {
       if (err) {
