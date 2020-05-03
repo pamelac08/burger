@@ -23,7 +23,6 @@ Eat-Da-Burger! is a single-page restaurant app that lets users input the names o
 * Data is stored and updated in a MySQL database
 * The app is hosted/deployed via Heroku
 
-In this assignment, you'll create a burger logger with MySQL, Node, Express, Handlebars and a homemade ORM (yum!). Be sure to follow the MVC design pattern; use Node and MySQL to query and route data in your app, and Handlebars to generate your HTML.
 
 
 App screenshot
